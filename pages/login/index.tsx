@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
-import logo from "/public/logo.svg";
+import logo from "/public/logo2.svg";
+import lock from "/public/lock.svg";
 import gmail from "/public/gmail.svg";
 import facebook from "/public/facebook.svg";
 import apple from "/public/apple.svg";
@@ -8,9 +9,10 @@ import styled from "styled-components";
 import { colors } from "../../styles/colors";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 import { constants } from "../../styles/constants";
 
-const mobile: string = "768px";
+const mobile: string = "600px";
 const desktop: string = "1024px";
 const tablet: string = "825px";
 
@@ -26,70 +28,326 @@ const Login: NextPage = () => {
 
   return (
     <>
-     
-        <Container>
+      <Head>
+        <link rel="icon" href="/favicon.svg"></link>
+        <title>Payfood | Login</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+
+      <Container>
         <motion.div variants={transition} initial="hidden" animate="show">
-          <Div>
+          <Subcontainer>
             <LogoContainer>
-              <Div14 src={logo}></Div14>
+              <Logo src={logo} height={18} />
             </LogoContainer>
-            <Div3>
-              <Div4 placeholder="Email" />
-              <Div4 placeholder="Senha" />
-            </Div3>
-            <Div6>
-              <LinkBtn href={"/"}>Recover Password ?</LinkBtn>
-            </Div6>
-            <Div7>
-              <Div8>Sign In</Div8>
-              <Div9>
-                <Div10 />
-                <Div11>Or continue with</Div11>
-                <Div12 />
-              </Div9>
-              <Div13>
-                <Social>
-                  <Div14 src={facebook}></Div14>
-                </Social>
-                <Social>
-                  <Div14 src={gmail}></Div14>
-                </Social>
-                <Social>
-                  <Div14 src={apple}></Div14>
-                </Social>
-              </Div13>
-            </Div7>
-            <DonthaveaaccountRegist>
-              Don’t have a account ?
-              <LinkBtn href={"/signup"}> Register here!</LinkBtn>
-            </DonthaveaaccountRegist>
-          </Div>
-          </motion.div>
-        </Container>
-       
-        <Footer />
-      
+            <TextImg>
+              <TitleContainer>
+                <Icondiv>
+                  <Icon src={lock} height={16}></Icon>
+                </Icondiv>
+                <Text>Login Empresarial</Text>
+              </TitleContainer>
+              <Description>
+                Acesso restrito para estabelecimentos cadastrados
+              </Description>
+            </TextImg>
+
+            <InputGrid>
+              <InputContainer>
+                <Input  id={"id1"} type="text" autoComplete="off" />
+                <Label>{"Email"}</Label>
+              </InputContainer>
+              <InputContainer>
+                <Input id={"id2"} type="password" autoComplete="off" />
+                <Label>{"Senha"}</Label>
+              </InputContainer>
+              <ForgetPassword>Esqueceu a senha ?</ForgetPassword>
+              <EnterBtn>Entrar</EnterBtn>
+            </InputGrid>
+            <SocialContainer>
+              Ou entre com
+              <SocialSubContainer>
+                <SocialIcons src={facebook} />
+                <SocialIcons src={gmail} />
+                <SocialIcons src={apple} />
+              </SocialSubContainer>
+            </SocialContainer>
+          </Subcontainer>
+        </motion.div>
+      </Container>
     </>
   );
 };
 
 export default Login;
 
+const InputGrid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 15px;
+`;
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  background: ${colors.base};
+  font-size: smaller;
+  font-weight: normal;
+  padding: 0 0.5rem;
+  position: absolute;
+  order: 0;
+  color: ${colors.orange};
+  text-shadow: none;
+  opacity: 1;
+  text-transform: capitalize;
+  transform-origin: left top;
+  transform: scale(0.8) translate3d(1.3rem, -8px, 0);
+  transition: 0.3s ease all;
+`;
+
+const Input = styled.input`
+
+border-radius: 0;
+display: flex;
+font-size: 12px;
+padding: 0.45rem 1.3rem 0.45rem 1.3rem;
+text-shadow: none;
+background: transparent;
+outline: 1px solid ${colors.orange};
+border: 0;
+border-radius: 8px;
+flex: 1 1 auto;
+transition:0.3s;
+order: 2;
+line-height:25px;
+&:focus {
+  color: ${colors.orange};
+}
+
+&:not(:focus) {
+  color: ${colors.orange};
+}
+}
+::placeholder {
+  opacity:0.5;
+}
+`;
+
+export const EnterBtn = styled.div`
+  color: ${colors.primaryWhite};
+  background: ${colors.orange};
+  width: 100%;
+  color: ${colors.base};
+  text-align: center;
+  font-size: 14px;
+  padding: 0.8rem 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 2rem auto 0 auto;
+  -webkit-box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  :hover {
+    color: ${colors.orange};
+    background: transparent;
+    outline: 1px solid ${colors.orange};
+  }
+`;
 
 export const Container = styled.div`
+  height: 100vh;
   width: 100vw;
-  height: fit-content;
-  background: rgb(20, 24, 27);
+  background: rgb(19, 23, 26);
   background: linear-gradient(
     0deg,
-    rgba(20, 24, 27, 1) 0%,
+    rgba(19, 23, 26, 1) 0%,
     rgba(49, 54, 58, 1) 100%
   );
-  @media (min-width: ${desktop}) {
-    width: 100%;
-    height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // Mobile
+  @media screen and (min-width: 0) and (max-width: ${mobile}) {
+    display: block;
+    padding: 4rem 0 0 0 ;
   }
+`;
+
+const ForgetPassword = styled.div`
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
+  text-align: right;
+  font-size: 0.7rem;
+  opacity: 0.5;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const Icon = styled(Image)`
+  width: fit-content;
+  height: 8px;
+  background: transparent;
+  padding-right: 0.5rem;
+`;
+
+const Icondiv = styled.div`
+  line-height: 0;
+`;
+
+const Text = styled.div`
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  color: ${colors.primaryWhite};
+  font-weight: 700;
+`;
+
+const Description = styled.div`
+  color: ${colors.primaryWhite};
+  font-size: 0.75rem;
+  font-weight: 200;
+  padding: 1rem 0 0;
+  opacity: 0.5;
+  text-align: center;
+  // Mobile
+  @media screen and (min-width: 0) and (max-width: ${mobile}) {
+    padding: 0 ;
+
+  }
+`;
+
+export const Input2 = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: none;
+  background-color: #f0efff;
+  color: black;
+  box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1);
+  text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.1);
+  ::placeholder {
+    color: color: ${colors.base};
+    font-weight: 300;
+    opacity: 0.5;
+    font-size: 0.9rem;
+    @media (max-width: ${tablet}) and (min-width: 0) {
+      font-size: 1rem;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const Subcontainer = styled.div`
+  width: 260px;
+  border-radius: 8px;
+  text-align: center;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 35px;
+  background: ${colors.base};
+  padding: 2rem 2rem 0 2rem;
+  -webkit-box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 10px 10px 17px 0px rgba(0, 0, 0, 0.24);
+  // Mobile
+  @media screen and (min-width: 0) and (max-width: ${mobile}) {
+    padding: 0 2rem;
+    width: 100%;
+    box-sizing:border-box;
+    display: block;
+    background:transparent;
+    box-shadow:none;
+  }
+`;
+
+export const SubTextContainer = styled.div``;
+
+export const TextImg = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  // Mobile
+  @media screen and (min-width: 0) and (max-width: ${mobile}) {
+    padding: 50% 0 15% 0;
+
+  }
+`;
+
+export const TitleContainer = styled.div`
+  width: fit-content;
+  display: flex;
+  margin: 0 auto;
+`;
+
+export const SubDescription = styled.div`
+background:green;
+color: ${colors.primaryWhite}
+font-weight:700;
+position:relative;
+`;
+
+export const SocialContainer = styled.div`
+  width: 100%;
+  color: ${colors.primaryWhite};
+  font-size: smaller;
+  text-align: center;
+  // Mobile
+  @media screen and (min-width: 0) and (max-width: ${mobile}) {
+    padding: 25% 0 0;
+
+  }
+`;
+
+export const SocialSubContainer = styled.div`
+  width: fit-content;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 0px;
+`;
+
+export const SocialIcons = styled(Image)`
+  background: transparent;
+  margin: 0 auto;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.3s;
+  :hover {
+    opacity: 1;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(255, 0, 255, 1);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(255, 0, 255, 1);
+    box-shadow: 10px 10px 5px 0px rgba(255, 0, 255, 1);
+  }
+`;
+
+export const Logo = styled(Image)`
+  width: fit-content;
+  height: 18px;
+  margin: 0 auto;
+  display: block;
+  background: transparent;
 `;
 
 export const LinkBtn = styled(Link)`
@@ -97,237 +355,10 @@ export const LinkBtn = styled(Link)`
   color: red;
 `;
 
-export const Div = styled.div`
-  @media (min-width: 0) and (max-width: ${mobile}) {
-    width: 100vw;
-    align-items: center;
-    padding: 25px;
-    justify-content: center;
-    display: block;
-    width: 82%;
-    margin: 0 auto;
-  }
-  @media (min-width: ${mobile}) and (max-width: ${desktop}) {
-    align-items: center;
-    padding: 25% 0 0 0;
-    justify-content: center;
-    display: block;
-    width: 62%;
-    height: 85vh;
-    margin: 0 auto;
-  }
-  @media (min-width: ${desktop}) {
-    align-items: center;
-    padding: 25px;
-    padding-top: 8%;
-    justify-content: center;
-    display: block;
-    width: 20%;
-    margin: 0 auto;
-    height: fit-content;
-  }
-`;
-
 // IMAGE LOGO _____________________________________________
 export const LogoContainer = styled.div`
   width: fit-content;
-  margin: 2rem auto 0 auto;
-  @media (min-width: ${desktop}) {
-    margin: 0 auto 2rem auto;
-  }
-`;
-
-export const Div2 = styled(Image)`
-  width: 100%;
-  height: 100%;
-`;
-// INPUT TEXT _____________________________________________
-export const Div3 = styled.div`
-  display: grid;
-  padding: 20% 0 0 0;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 20px;
-  @media (min-width: ${desktop}) {
-    padding: 10% 0 0 0;
-  }
-`;
-
-export const Div4 = styled.input`
-  width: 100%;
-  border: none;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid ${colors.orange_1};
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
-  ::placeholder{
-    color:${colors.orange_1};
-  }
-`;
-// RECOVERY PASSWORD _____________________________________________
-export const Div6 = styled.div`
-  width: 100%;
-  padding: 1rem 0 0 0;
-  font-size: small;
-  opacity: 0.5;
-  text-align: right;
-`;
-// IMAGE LOGO _____________________________________________
-export const Div7 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: stretch;
-  width: 100%;
-  align-items: center;
+  height: fit-content;
   margin: 0 auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  @media (min-width: ${desktop}) {
-    padding: 20px auto;
-  }
+  line-height: 0;
 `;
-
-export const Div8 = styled.button`
-  width: 100%;
-  padding: 1rem 0;
-  margin: 0 auto 20% auto;
-  border: none;
-  border-radius: 5px;
-  background-color: ${colors.orange_1};
-  color: ${colors.baseBg1};
-  font-size: 16px;
-  text-align: center;
-  font-family: "Sora", sans-serif;
-  -webkit-box-shadow: ${constants.boxShadow};
-  -moz-box-shadow: ${constants.boxShadow};
-  box-shadow: ${constants.boxShadow};
-  transition: 0.3s;
-  cursor: pointer;
-  &:hover {
-    background-color: transparent;
-    color: ${colors.orange_1};
-    outline: 1px solid ${colors.orange_1};
-  }
-  @media (min-width: ${desktop}) {
-    width: 100%;
-    margin: 0 auto 10% auto;
-  }
-`;
-
-export const Div9 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-self: stretch;
-  width: 100%;
-  align-items: center;
-  padding-top: 35px;
-  padding-bottom: 15px;
-`;
-
-export const Div10 = styled.div`
-  display: flex;
-  max-width: 64px;
-  height: 0.1rem;
-  width: 64px;
-  background-color: ${colors.orange_1};
-`;
-
-export const Div11 = styled.div`
-  max-width: 138px;
-  margin-left: 11px;
-  color: ${colors.orange_1};
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 9%;
-  text-align: left;
-  font-family: "Sora", sans-serif;
-`;
-
-export const Div12 = styled.div`
-  display: flex;
-  max-width: 64px;
-  height: 0.1rem;
-  width: 64px;
-  margin-left: 11px;
-  background-color: ${colors.orange_1};
-`;
-
-export const Div13 = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 30px;
-  grid-row-gap: 0px;
-  width: 100%;
-  @media (min-width: ${desktop}) {
-    padding: 0;
-  }
-`;
-
-export const Social = styled.div`
-  height: 55px;
-  text-align: center;
-  -webkit-box-shadow: ${constants.boxShadow};
-  -moz-box-shadow: ${constants.boxShadow};
-  box-shadow: ${constants.boxShadow};
-  letter-spacing: 0;
-  word-spacing: 0;
-  font-size: 0;
-  display: flex;
-  border: 1px solid ${colors.baseBg1};
-  justify-content: center;
-  border-radius: 5px;
-  transition:0.3s;
-  cursor: pointer;
-  &:hover{
-    -webkit-box-shadow: ${constants.boxShadow2};
-  -moz-box-shadow: ${constants.boxShadow2};
-  box-shadow: ${constants.boxShadow2};
-  }
-`;
-
-export const Div14 = styled(Image)`
-  width: fit-content;
-  height: 100%;
-  margin: 0 auto;
-  display: block;
-`;
-
-export const Div15 = styled.div`
-  display: flex;
-  max-width: 66.66666412353516px;
-  height: 35px;
-  width: 66.66666412353516px;
-  margin-left: 23px;
-  border-radius: 10px;
-  box-shadow: 0px 10px 13px 0px rgba(0, 0, 0, 0.12999999523162842);
-  background-color: rgba(255, 255, 255, 1);
-`;
-
-export const Div16 = styled.div`
-  display: flex;
-  max-width: 66.66666412353516px;
-  height: 35px;
-  width: 66.66666412353516px;
-  margin-left: 23px;
-  border-radius: 10px;
-  box-shadow: 0px 10px 13px 0px rgba(0, 0, 0, 0.12999999523162842);
-  background-color: rgba(255, 255, 255, 1);
-`;
-
-export const DonthaveaaccountRegist = styled.div`
-  margin: 0 auto 4rem auto;
-  font-size: small;
-  opacity: 0.5;
-  letter-spacing: 0%;
-  text-align: center;
-  @media (min-width: ${desktop}) {
-    margin: 0 auto;
-  }
-`;
-

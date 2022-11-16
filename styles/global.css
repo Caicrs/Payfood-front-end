@@ -3,11 +3,23 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  color: #fb6910;
   font-family: "Sora", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+}
+
+
+body{
+  margin: 0;
+  padding: 0;
   background: rgb(20, 24, 27);
+  color: #fb6910;
+}
+
+div{
+  margin: 0;
+  padding: 0;
 }
 
 /* ===== Scrollbar CSS ===== */

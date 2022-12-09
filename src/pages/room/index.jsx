@@ -1,111 +1,89 @@
-import { useEffect, useMemo, useRef,useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 
-const General = () => {
+const url = new URL(window.location.href); // For get the entire url
+const thisChannel = "ws://localhost:8000/ws" + url.pathname; // For get only the "/:id" value
+const room = url.pathname.replace("/", "");
+const ws = new WebSocket(thisChannel);
+
+const Channel = () => {
+  const username = localStorage.getItem("chatty-username");
   const data = useRef(new Array());
+  const [messages, setMessages] = useState([]);
   const form = document.querySelector("form");
   const url = new URL(window.location.href);
   const wsurl = new WebSocket("ws://localhost:8000" + "/ws" + url.pathname);
   const room = url.pathname.replace("/", "");
   const input = useRef(null);
- 
 
-  // console.log(wsurl)
-
-  let username = localStorage.getItem("chatty-username");
-  while (!username || !username.trim()) {
-    username = prompt("Enter a username");
-    if (username.trim()) {
-      localStorage.setItem("chatty-username", username.trim());
-    }
-  }
-
-  useEffect(() => {
-    
-    wsurl.addEventListener("message", function (message) {
-      const data = JSON.parse(message.data);
-      switch (data.type) {
-        case "message":
-          add(data.payload);
-          break;
-        default:
-          break;
-      }
-    });
-
-  }, []);
-
-
-  function add(message) {
-    console.log("add : " + message.body);
-    data.current.push = message.body;
-    console.log(data);
-   /* const messages = document.querySelector("#messages");
-    const ele = document.createElement("div");
-    ele.className = "message";
-    ele.textContent = message.by + ": " + message.body;
-    "" || messages.appendChild(ele);
-    */
-  }
-
-  wsurl.addEventListener("open", function () {
+  wsurl.onopen = () => {
     const m = {
       type: "join",
       payload: {
         by: username,
-        room: "general",
+        room: url.pathname,
       },
     };
-    wsurl.send(JSON.stringify(m));
-  });
+    //   wsurl.send(JSON.stringify(m));
+  };
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+ 
     const m = {
       type: "message",
       payload: {
-        body: input.current,
-        by: username,
+        body: {
+          client: "client-name",
+          marketplace: "general-marketplace",
+          table: 1,
+          products: [
+            {
+              id: "product-id-1",
+              name: "product-name-1",
+              price: 12.99,
+            },
+            {
+              id: "product-id-2",
+              name: "product-name-2",
+              price: 22.99,
+            },
+          ],
+          totalPrice: 12.99,
+          date: "20/20/2022",
+          hour: "9:10",
+        },
+        by: "new user",
         room: room,
       },
     };
-    // retornar isso pro usuario guardando nos cookies ou localStorage
-    data.current.push(input.current);
-    console.log(data)
-    // wsurl.send(JSON.stringify(m));
+    // retornar isso pro usuario guardando nos cookies/cache/localStorage
+
+    wsurl.send(JSON.stringify(m));
+    console.log("enviado");
     input.current = "";
-    document.getElementById("input").value = "";
   };
 
   return (
     <>
-      <h1 id="statusServer"></h1>
       <ChatContainer>
         <MessagesContainer>
           <Messages>
-
+          
           </Messages>
         </MessagesContainer>
-        <Form id="form" onSubmit={handleSubmit}>
-          <Input
-            id="input"
-            onChange={(e) => (input.current = e.target.value)}
-            ref={input}
-            type="text"
-            placeholder="Insira sua mensagem"
-          />
-
+     
           <BtnContainer id="submit">
-            <Btn type="submit">Enviar</Btn>
-          </BtnContainer>
-        </Form>
+            <Btn onClick={handleSubmit}>Enviar</Btn>
+          </BtnContainer> 
+    
       </ChatContainer>
     </>
   );
 };
 
-export default General;
+export default Channel;
 
 const ChatContainer = styled.div`
   width: 90%;
@@ -137,7 +115,7 @@ const BtnContainer = styled.div`
   }
 `;
 
-const Btn = styled.button`
+const Btn = styled.div`
   width: 100%;
   height: 100%;
   padding: 1rem 2rem;

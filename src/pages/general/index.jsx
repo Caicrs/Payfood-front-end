@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const General = () => {
   const data = useRef(new Array());
+  const [messages, setMessages] = useState([]);
   const form = document.querySelector("form");
   const url = new URL(window.location.href);
   const wsurl = new WebSocket("ws://localhost:8000" + "/ws" + url.pathname);
@@ -17,7 +18,7 @@ const General = () => {
         room: "general",
       },
     };
-    wsurl.send(JSON.stringify(m));
+    //   wsurl.send(JSON.stringify(m));
   };
 
   wsurl.addEventListener("message", function (message) {
@@ -27,6 +28,7 @@ const General = () => {
         left(data.payload);
         break;
       case "message":
+        // console.log(data.payload)
         add(data.payload);
         break;
       default:
@@ -35,16 +37,7 @@ const General = () => {
   });
 
   function add(message) {
-    console.log("add : " + message.body);
-    /*
-  data.current.push = message.body;
-  console.log(data);
-  const messages = document.querySelector("#messages");
-  const ele = document.createElement("div");
-  ele.className = "message";
-  ele.textContent = message.by + ": " + message.body;
-  "" || messages.appendChild(ele);
-  */
+    messages.push(message.body)
   }
 
   function left(message) {
@@ -64,15 +57,34 @@ const General = () => {
     const m = {
       type: "message",
       payload: {
-        body: input.current,
+        body: {
+          client: "client-name",
+          marketplace: "general-marketplace",
+          table: 1,
+          products: [
+            {
+              id: "product-id-1",
+              name: "product-name-1",
+              price: 12.99,
+            },
+            {
+              id: "product-id-2",
+              name: "product-name-2",
+              price: 22.99,
+            },
+          ],
+          totalPrice: 12.99,
+          date: "20/20/2022",
+          hour: "9:10",
+        },
         by: "new user",
         room: room,
       },
     };
     // retornar isso pro usuario guardando nos cookies/cache/localStorage
-    data.current.push(input.current);
-    console.log(data);
+
     wsurl.send(JSON.stringify(m));
+    console.log("enviado");
     input.current = "";
     document.getElementById("input").value = "";
   };
@@ -81,7 +93,9 @@ const General = () => {
     <>
       <ChatContainer>
         <MessagesContainer>
-          <Messages></Messages>
+          <Messages>
+          
+          </Messages>
         </MessagesContainer>
         <Form id="form" onSubmit={handleSubmit}>
           <Input
@@ -118,6 +132,8 @@ const MessagesContainer = styled.div`
 const Messages = styled.div`
   padding: 1rem 0 0.5rem 2rem;
   font-size: 0.75rem;
+  font-weight: 400;
+  color: white;
 `;
 
 const Form = styled.form`

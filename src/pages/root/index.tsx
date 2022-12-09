@@ -9,17 +9,14 @@ const Root = () => {
   return (
     <Container>
       <Subcontainer>
+      <Link to={"/general-responses"}>
+          <Room>General Responses</Room>
+        </Link>
         <Link to={"/general"}>
           <Room>General</Room>
         </Link>
         <Link to={"/mk1"}>
-          <Room>Marketplace-1</Room>
-        </Link>
-        <Link to={"/mk2"}>
-          <Room>Marketplace-2</Room>
-        </Link>
-        <Link to={"/mk3"}>
-          <Room>Marketplace-3</Room>
+          <Room>MK1</Room>
         </Link>
       </Subcontainer>
     </Container>

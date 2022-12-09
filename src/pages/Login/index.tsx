@@ -1,24 +1,18 @@
-import type { NextPage } from "next";
-import logo from "/public/logo2.svg";
-import lock from "/public/lock.svg";
-import gmail from "/public/gmail.svg";
-import facebook from "/public/facebook.svg";
-import apple from "/public/apple.svg";
+import logo from "../../assets/logo2.svg";
+import lock from "../../assets/lock.svg";
+import gmail from "../../assets/gmail.svg";
+import facebook from "../../assets/facebook.svg";
+import apple from "../../assets/apple.svg";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { colors } from "../../styles/colors";
-import Link from "next/link";
-import Image from "next/image";
-import Head from "next/head";
-import { constants } from "../../styles/constants";
+import { colors } from "../../style/colors";
+import { constants } from "../../style/constants";
 
 const mobile: string = "600px";
 const desktop: string = "1024px";
 const tablet: string = "825px";
 
-import Footer from "../../components/footer";
-
-const Login: NextPage = () => {
+const Login  = () => {
   const transition = {
     hidden: { opacity: 0 },
     show: {
@@ -28,12 +22,6 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <link rel="icon" href="/favicon.svg"></link>
-        <title>Payfood | Login</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-
       <Container>
         <motion.div variants={transition} initial="hidden" animate="show">
           <Subcontainer>
@@ -164,12 +152,7 @@ export const EnterBtn = styled.div`
 export const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  background: rgb(19, 23, 26);
-  background: linear-gradient(
-    0deg,
-    rgba(19, 23, 26, 1) 0%,
-    rgba(49, 54, 58, 1) 100%
-  );
+  background: ${colors.base};
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -195,7 +178,7 @@ const ForgetPassword = styled.div`
   }
 `;
 
-export const Icon = styled(Image)`
+export const Icon = styled.img`
   width: fit-content;
   height: 8px;
   background: transparent;
@@ -328,7 +311,7 @@ export const SocialSubContainer = styled.div`
   grid-row-gap: 0px;
 `;
 
-export const SocialIcons = styled(Image)`
+export const SocialIcons = styled.img`
   background: transparent;
   margin: 0 auto;
   opacity: 0.5;
@@ -342,7 +325,7 @@ export const SocialIcons = styled(Image)`
   }
 `;
 
-export const Logo = styled(Image)`
+export const Logo = styled.img`
   width: fit-content;
   height: 18px;
   margin: 0 auto;
@@ -350,7 +333,7 @@ export const Logo = styled(Image)`
   background: transparent;
 `;
 
-export const LinkBtn = styled(Link)`
+export const LinkBtn = styled.a`
   font-family: "Sora", sans-serif;
   color: red;
 `;

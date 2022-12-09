@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: "Sora", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+
+body{
+  margin: 0;
+  padding: 0;
+  background: rgb(20, 24, 27);
+  color: #fb6910;
+}
+
+div{
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: #fb6910 #373737;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #373737;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #fb6910;
+  border-radius: 10px;
+  border: 3px none #ffffff;
+}

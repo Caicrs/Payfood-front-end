@@ -1,0 +1,137 @@
+import { useEffect, useState,useRef } from "react";
+import io from 'socket.io-client';
+import styled from "styled-components";
+
+const socketx = new WebSocket("ws://localhost:8000/echo");
+const connect = new WebSocket("ws://localhost:8000/");
+
+const App = () => {
+  const output = document.getElementById("output");
+  const statusServer = document.getElementById("statusServer");
+  const inputEl = useRef(null);
+  const status = useRef(null);
+  console.log(socketx)
+
+  const Connect = () => {
+    status.current = "Connected"
+   
+    
+    console.log(status.current)
+  }
+
+  socketx.onopen = function(){
+    statusServer.innerHTML += "Connected";
+  }
+  
+
+ 
+socketx.onmessage = function (e) {
+  output.innerHTML += "Server: " + e.data + "\n";
+  console.log(e.data)
+};
+ 
+  const onButtonClick = () => {
+    console.log(inputEl.current);
+   
+  };
+
+ 
+
+    const users = ["User #1","User #2","User #3"]
+    const rooms = ["Room #1","Room #2","Room #3"]
+
+    const JoinChat = (room) => {
+        alert(room)
+    }
+
+
+    const [user,setUser] = useState("")
+  
+
+  return (
+    <>
+
+
+        <RoomsList>
+            {rooms.map((data,i) => 
+            <Room key={i}  onClick={() => JoinChat(data)}>{data}</Room>
+            )}
+        </RoomsList>
+        <h1 id="statusServer"></h1>
+        <ChatContainer>
+                <MessagesContainer>
+                <Messages> <pre id="output"></pre></Messages>
+                </MessagesContainer>
+                <Form>
+                <Input onChange={e =>  inputEl.current = e.target.value} ref={inputEl} type="text" placeholder="Insira sua mensagem"/>
+                <Btn onClick={onButtonClick}>Enviar</Btn>
+                </Form>
+                
+        </ChatContainer>
+     
+    </>
+  );
+};
+
+export default App;
+
+const ChatContainer = styled.div`
+width:90%;
+-webkit-box-shadow: 10px 10px 61px -15px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 61px -15px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 61px -15px rgba(0,0,0,0.75);
+margin: 0 auto;
+`;
+
+const MessagesContainer = styled.div`
+height:500px;
+`
+
+const Messages = styled.div`
+padding:1rem 0 0.5rem 2rem;
+font-size:0.75rem;
+`;
+
+const Form = styled.form`
+display:flex;
+`;
+
+const Btn = styled.div`
+background:white;
+padding: 1rem 2rem;
+color:black;
+cursor:pointer;
+transition:0.3s;
+:hover{
+    opacity:0.5;
+}
+`;
+
+const Input = styled.input`
+width:100%;
+border:0;
+padding:1rem;
+background:gray;
+&:focus {
+  outline: none;
+}
+`;
+
+const RoomsList = styled.div`
+width:fit-content;
+margin:0 auto;
+display: flex;
+`;
+
+const Room = styled.div`
+margin:1rem 0 1rem 2rem;
+width: fit-content;
+color: orange;
+cursor: pointer;
+:hover{
+    opacity: 0.5;
+    background: 
+}
+`;
+
+
